@@ -60,6 +60,7 @@ jetzt ist vs code installiert
 auf kali:
 - Order erstellen und repo clonen
 - mit code . Ordner in vscode öffnen
+
 ```
 ┌──(kali㉿kali)-[~]
 └─$ setxkbmap de           
