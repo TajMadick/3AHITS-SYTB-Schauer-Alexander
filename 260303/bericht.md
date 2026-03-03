@@ -9,6 +9,8 @@
 # Übersicht
 
 - Visual Studio Code downloaden
+- Github repo anlegen und lokal laden
+- Read me bearbeiten und pushen
 
 # Visual Studio Code downloaden
 
