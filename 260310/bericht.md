@@ -5,6 +5,7 @@
 - Name: Alexander Schauer
 - Klasse: 3AHITS
 - Fach: SYTB
+- Angabe: https://www.franzmatejka.at/htl/doc/ITSI_2_linux/13_curl.html
 
 # Übersicht
 
