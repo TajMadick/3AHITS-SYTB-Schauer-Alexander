@@ -1,7 +1,7 @@
 # Arbeitsbericht
 
 - Datum: 10.3.2026
-- Thema: Arbeitsbericht Curl
+- Thema: [Arbeitsbericht Curl](https://www.franzmatejka.at/htl/doc/ITSI_2_linux/13_curl.html)
 - Name: Alexander Schauer
 - Klasse: 3AHITS
 - Fach: SYTB
