@@ -5,6 +5,7 @@
 - Name: Alexander Schauer
 - Klasse: 3AHITS
 - Fach: SYTB
+- Angabe: https://www.franzmatejka.at/htl/doc/ITSI_2_linux/13_curl.html
 
 # Übersicht
 
@@ -299,103 +300,128 @@ Formated Output:
 
 ```
 ┌──(kali㉿kali)-[~/SYTB]
-└─$ curl "https://api-bdc.io/data/reverse-geocode-client"                                                             
+└─$ curl "https://api-bdc.io/data/reverse-geocode-client/?latitude=32.6875&longitude=-16.875"
 {
-  "latitude": 48.2599983215332,
-  "lookupSource": "ip geolocation",
-  "longitude": 13.039999961853027,
+  "latitude": 32.6875,
+  "lookupSource": "coordinates",
+  "longitude": -16.875,
   "localityLanguageRequested": "en",
   "continent": "Europe",
   "continentCode": "EU",
-  "countryName": "Austria",
-  "countryCode": "AT",
-  "principalSubdivision": "Oberosterreich",
-  "principalSubdivisionCode": "AT-4",
-  "city": "Braunau am Inn",
-  "locality": "Braunau am Inn",
+  "countryName": "Portugal",
+  "countryCode": "PT",
+  "principalSubdivision": "Madeira",
+  "principalSubdivisionCode": "PT-30",
+  "city": "Funchal",
+  "locality": "Funchal (Santa Maria Maior)",
   "postcode": "",
-  "plusCode": "8FWM725Q+XX",
+  "plusCode": "8C45M4QG+22",
   "localityInfo": {
     "administrative": [
       {
-        "name": "Austria",
-        "description": "country in Central Europe",
-        "isoName": "Austria",
-        "order": 4,
+        "name": "Portugal",
+        "description": "country in Southwestern Europe",
+        "isoName": "Portugal",
+        "order": 3,
         "adminLevel": 2,
-        "isoCode": "AT",
-        "wikidataId": "Q40",
-        "geonameId": 2782113
+        "isoCode": "PT",
+        "wikidataId": "Q45",
+        "geonameId": 2264397
       },
       {
-        "name": "Oberosterreich",
-        "description": "federal state in the North of Austria",
-        "isoName": "Oberosterreich",
-        "order": 6,
+        "name": "Madeira",
+        "description": "Autonomous Region of Portugal in the archipelago of Madeira",
+        "isoName": "Madeira",
+        "order": 5,
         "adminLevel": 4,
-        "isoCode": "AT-4",
-        "wikidataId": "Q41967",
-        "geonameId": 2769848
+        "isoCode": "PT-30",
+        "wikidataId": "Q26253",
+        "geonameId": 2593105
       },
       {
-        "name": "Braunau District",
-        "description": "district of Austria",
+        "name": "Funchal",
+        "description": "municipality in Madeira, Portugal",
+        "order": 8,
+        "adminLevel": 7,
+        "wikidataId": "Q25444",
+        "geonameId": 2267827
+      },
+      {
+        "name": "Santa Cruz",
+        "description": "municipality in Madeira, Portugal",
         "order": 9,
-        "adminLevel": 6,
-        "wikidataId": "Q255626",
-        "geonameId": 2781519
+        "adminLevel": 7,
+        "wikidataId": "Q658823",
+        "geonameId": 8010680
       },
       {
-        "name": "Braunau am Inn",
-        "description": "town in Braunau District, Upper Austria, Austria",
+        "name": "Camacha",
+        "description": "civil parish in Santa Cruz",
         "order": 10,
         "adminLevel": 8,
-        "wikidataId": "Q131128",
-        "geonameId": 2781520
+        "wikidataId": "Q857666",
+        "geonameId": 2270386
+      },
+      {
+        "name": "Nossa Senhora do Monte",
+        "description": "civil parish in Funchal",
+        "order": 11,
+        "adminLevel": 8,
+        "wikidataId": "Q1179064",
+        "geonameId": 2265494
+      },
+      {
+        "name": "Funchal (Santa Maria Maior)",
+        "description": "civil parish in Funchal",
+        "order": 12,
+        "adminLevel": 8,
+        "wikidataId": "Q2078801",
+        "geonameId": 8014021
       }
     ],
     "informative": [
       {
+        "name": "Africa",
+        "description": "continent",
+        "isoName": "Africa",
+        "order": 1,
+        "isoCode": "AF",
+        "wikidataId": "Q15",
+        "geonameId": 6255146
+      },
+      {
         "name": "Europe",
         "description": "terrestrial continent located in north-western Eurasia",
         "isoName": "Europe",
-        "order": 1,
+        "order": 2,
         "isoCode": "EU",
         "wikidataId": "Q46",
         "geonameId": 6255148
       },
       {
-        "name": "Europe/Berlin",
+        "name": "Atlantic/Madeira",
         "description": "time zone",
-        "order": 2
+        "order": 4
       },
       {
-        "name": "Europe/Vienna",
-        "description": "time zone",
-        "order": 3
+        "name": "Madeira Island",
+        "description": "island of Portugal",
+        "order": 6,
+        "wikidataId": "Q30188",
+        "geonameId": 2266874
       },
       {
-        "name": "Western Austria",
-        "order": 5,
-        "wikidataId": "Q23241"
-      },
-      {
-        "name": "Innviertel",
-        "order": 7
-      },
-      {
-        "name": "Innviertel",
-        "description": "geographic region",
-        "order": 8,
-        "wikidataId": "Q700460",
-        "geonameId": 2775213
+        "name": "Ilha da Madeira",
+        "description": "statistical territorial entity of Portugal",
+        "order": 7,
+        "wikidataId": "Q14206035"
       }
     ]
   }
-}     
+}
 ```
 
-- bei der Stadt handelt es sich um Braunau am Inn
+- bei der Stadt handelt es sich um Funchal
 
 # Quellen
 - https://linux.die.net/man/1/curl
