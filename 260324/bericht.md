@@ -74,7 +74,8 @@ echo "Irgendein Text" > $DIR_NAME/$FILE_NAME
 - um der Bash zu sagen was genau der Variablenname ist kann man den Variablennamen in Curly Braces einwickeln: ```echo "${FILE}_001.txt"```
 
 ### Vor ausführen:
-- Datei mit chmod ausführbar machen und mit ls -l schauen ob bei der Datei die x gesetzt sind
+- Datei mit chmod ausführbar machen und mit ls -l schauen ob bei der Datei die x gesetzt sind  
+
 ```
 ┌──(kali㉿kali)-[~/SYTB/260324]
 └─$ chmod 755 hello2.sh
@@ -87,7 +88,8 @@ total 12
 
 ### Output:
 - ./ vor Dateinamen weil Linux nach Scripts im sogenannten Path schaut und damit sagt man Linux das er nach dem Dateinamen im aktuellen Directory schauen soll
-- man kann auch sh hello.sh schreiben 
+- man kann auch sh hello.sh schreiben  
+
 ```              
 ┌──(kali㉿kali)-[~/SYTB/260324]
 └─$ ./hello.sh        
