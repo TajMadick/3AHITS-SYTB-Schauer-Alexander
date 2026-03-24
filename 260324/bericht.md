@@ -75,7 +75,7 @@ echo "Irgendein Text" > $DIR_NAME/$FILE_NAME
 
 ### Vor ausführen:
 - Datei mit chmod ausführbar machen und mit ls -l schauen ob bei der Datei die x gesetzt sind  
-
+---
 ```
 ┌──(kali㉿kali)-[~/SYTB/260324]
 └─$ chmod 755 hello2.sh
