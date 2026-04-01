@@ -20,6 +20,7 @@
 # Erklärung Shell Script
 
 ### Beispiel Script:
+
 ```
 # !/bin/env bash
  
@@ -57,25 +58,29 @@ echo "${FILE}_002.txt"
 ```
 
 ### Erklärung einzelner Befehle
+
 - ```# !/bin/env bash``` definiert die Standardshell mit der das Programm ausgeführt werden soll
 - ```# Hallo Welt``` wenn ein ```#``` davorsteht ist es ein Kommentar
 - ```echo Guten Morgen``` Ausgabe von Text mit echo
 - ```ABC=abc``` so kann man Variablen anlegen. Normalerweise schreibt man Variablen Namen in Großbuchstaben und bei dem Leerzeichen darf kein Abstand sein
 - ```echo $ABC``` mit $VARIABLEN_NAME kann man auf den Inhalt einer Variable zugreifen
 - Beispiel: hier werden zwei Variablen angelegt: ein Ordner Name und ein File Name dann wird der Ordner erstellt und ein File mit dem Inhalt Irgendein Text wird in dem Ordner erstellt
+  
 ```
 FILE_NAME=test.txt
 DIR_NAME=mydir
 mkdir $DIR_NAME
 echo "Irgendein Text" > $DIR_NAME/$FILE_NAME
 ```
+
 - Wenn man einen Text in Double Quotes hat ```TEXT="Hallo $NAME"``` wird der Inhalt der Variable $NAME hergenommen
 - Wenn man einen Text in Single Quotes hat ```TEXT2='Hallo $NAME'``` steht im Output auch $NAME wenn man das auch mit Double Quotes ereichen will kann man ```TEXT="Hallo \$NAME"``` schreiben
 - um der Bash zu sagen was genau der Variablenname ist kann man den Variablennamen in Curly Braces einwickeln: ```echo "${FILE}_001.txt"```
 
 ### Vor ausführen:
+
 - Datei mit chmod ausführbar machen und mit ls -l schauen ob bei der Datei die x gesetzt sind  
----
+
 ```
 ┌──(kali㉿kali)-[~/SYTB/260324]
 └─$ chmod 755 hello2.sh
@@ -87,6 +92,7 @@ total 12
 ```
 
 ### Output:
+
 - ./ vor Dateinamen weil Linux nach Scripts im sogenannten Path schaut und damit sagt man Linux das er nach dem Dateinamen im aktuellen Directory schauen soll
 - man kann auch sh hello.sh schreiben  
 
@@ -218,6 +224,7 @@ echo "$USER_backup"
 Warum geht echo ```"$USER_backup"``` nicht? Weil Bash denkt die Variable heißt USER_backup
 
 ### Lösung
+
 ```
 ┌──(kali㉿kali)-[~/SYTB/260324]
 └─$ USER="admin"
@@ -270,6 +277,7 @@ backup_2026-01-16.tar
 backup_2026-01-16.tar.gz
 
 ### Lösung
+
 ```
 ┌──(kali㉿kali)-[~/SYTB/260324]
 └─$ BASE="backup"      
