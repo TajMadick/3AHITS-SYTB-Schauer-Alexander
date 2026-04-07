@@ -1,299 +1,348 @@
 # Arbeitsbericht
 
 - Datum: 7.4.2026
-- Thema: []()
+- Thema: [Shell Scripts - Command Line Arguments und Loops](https://www.franzmatejka.at/htl/doc/SYTB_3/05_scripts_ue.html)
 - Name: Alexander Schauer
 - Klasse: 3AHITS
 - Fach: SYTB
 
 # Übersicht
 
-- Erklärung Shell Script
-- Übung (Variablen)
-- Übung (Begrüßung)
-- Übung (Zeilenumbruch)
-- Übung (admin)
-- Übung (log file names)
-- Übung (backup)
-- Quellen
+- Erklärung Shell Script Command Line Arguments
+- Übung (Directory Struktur)
+- Übung (Skript Generator)
+- Übung (Headline Cat)
+- Übung (RANDOM)
 
 # Erklärung Shell Script
 
-### Beispiel Script:
+### Command Line Arguments
 
-```
-# !/bin/env bash
- 
-# Hallo Welt
- 
-# Shell Script = Textdatei mit shell Befehlen
-# Befehle ergeben das gleiche Ergebnis wie wenn in der shell ausgeführt
+wenn man nach dem Script-Namen auch noch Argumente schreibt: ```./script.sh abc cdf``` sind das Command Line Arguments.  
+Man kann auf sie im Script mit spezielen Varibalen zugreifen: 
+- ```$0``` für den Script-Name: ```./script.sh```
+- ```$1``` für das erste Argument ```abc```
+- ```$2``` für das Zweite ```cdf``` und so weiter
 
-echo Guten Morgen
-ABC=abc
-echo $ABC
- 
-FILE_NAME=test.txt
-DIR_NAME=mydir
-mkdir $DIR_NAME
-echo "Irgendein Text" > $DIR_NAME/$FILE_NAME
- 
-# double quotes
-NAME=ELIA
-TEXT="Hallo $NAME"
-echo $TEXT
- 
-#single quotes
-TEXT2='Hallo $NAME'
-echo $TEXT2
- 
-# curly braces {}
- 
-FILE=myname
-echo "$FILE_001.txt"
-echo "$FILE_002.txt"
- 
-echo "${FILE}_001.txt"
-echo "${FILE}_002.txt"
+mit ```$@``` bekommt man alle Argumente ab ```$1```  
+damit kann man zum Beispiel ein Schleife machen:
+
+```bash
+for arg in "$@"
+do
+    echo "$arg"
+done
 ```
 
-### Erklärung einzelner Befehle
+hier zu beachten ist doppelte Hochkomma ```"``` statt einfachen ```'``` herzunehmen da sonst der Variablen-Name nicht greift.
 
-- ```# !/bin/env bash``` definiert die Standardshell mit der das Programm ausgeführt werden soll
-- ```# Hallo Welt``` wenn ein ```#``` davorsteht ist es ein Kommentar
-- ```echo Guten Morgen``` Ausgabe von Text mit echo
-- ```ABC=abc``` so kann man Variablen anlegen. Normalerweise schreibt man Variablen Namen in Großbuchstaben und bei dem Leerzeichen darf kein Abstand sein
-- ```echo $ABC``` mit $VARIABLEN_NAME kann man auf den Inhalt einer Variable zugreifen
-- Beispiel: hier werden zwei Variablen angelegt: ein Ordner Name und ein File Name dann wird der Ordner erstellt und ein File mit dem Inhalt Irgendein Text wird in dem Ordner erstellt
-  
+### Beispiel
+
+```bash
+# test.sh
+for arg in "$@"
+do
+        echo "$arg"
+done
+
+echo "Script: $0"
+echo "First Argument: $1"
 ```
-FILE_NAME=test.txt
-DIR_NAME=mydir
-mkdir $DIR_NAME
-echo "Irgendein Text" > $DIR_NAME/$FILE_NAME
-```
 
-- Wenn man einen Text in Double Quotes hat ```TEXT="Hallo $NAME"``` wird der Inhalt der Variable $NAME hergenommen
-- Wenn man einen Text in Single Quotes hat ```TEXT2='Hallo $NAME'``` steht im Output auch $NAME wenn man das auch mit Double Quotes ereichen will kann man ```TEXT="Hallo \$NAME"``` schreiben
-- um der Bash zu sagen was genau der Variablenname ist kann man den Variablennamen in Curly Braces einwickeln: ```echo "${FILE}_001.txt"```
-
-### Vor ausführen:
-
-- Datei mit chmod ausführbar machen und mit ls -l schauen ob bei der Datei die x gesetzt sind  
+### Output
 
 ```
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ chmod 755 hello2.sh
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ./test.sh abc def ghi jkl mno pqr stu vwx yz
+abc
+def
+ghi
+jkl
+mno
+pqr
+stu
+vwx
+yz
+Script: ./test.sh
+First Argument: abc
+```
 
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ ls -l 
-total 12
--rwxr-xr-x 1 kali kali  435 Mar 24 08:27 hello.sh
+# Übung (Directory Struktur)
+
+### Angabe:
+Schreibe ein Shell-Script das Unterverzeichnisse und Dateien anlegt, es wird ein Argument an das Script übergeben.
+
+Aufruf: ./build_dirs.sh abcd
+
+Dies führt zu folgender Directorystruktur:
+
+```
+./
+└── abcd/
+    ├── abcd_01/
+    │   ├── abcd.01.1.txt
+    │   ├── abcd.01.2.txt
+    │   └── abcd.01.3.txt
+    └── abcd_02/
+        ├── abcd.02.1.txt
+        ├── abcd.02.2.txt
+        └── abcd.02.3.txt
+```
+
+Schreibe weiters ein Shell-Script clean_dir.sh das diese Verzeichnisstruktur wieder löscht.
+
+Hinweis: Das Kommando tree kann verwendet werden um eine Directory Struktur in obiger Form darzustellen.
+
+### Lösung:
+
+```bash
+#build_dirs.sh
+
+#!/bin/bash
+
+#wichtig da sonst nicht mit bash ausgeführ wird und schleife nicht funktionieren wuerde
+
+mkdir "$1"
+for i in {01..02}
+do
+        mkdir "$1/${1}_${i}"
+        for j in {1..3}
+        do
+                touch "$1/${1}_${i}/${1}.${i}.${j}.txt"
+        done
+done
+
+tree
 ```
 
 ### Output:
 
-- ./ vor Dateinamen weil Linux nach Scripts im sogenannten Path schaut und damit sagt man Linux das er nach dem Dateinamen im aktuellen Directory schauen soll
-- man kann auch sh hello.sh schreiben  
-
-```              
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ ./hello.sh        
-Welt
-Guten Morgen
-Hallo Aleksander
-Hallo $NAME
-.txt
-.txt
-myname_001.txt
-myname_002.txt
+```
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ./build_dirs.sh abcd
+.
+├── abcd
+│   ├── abcd_01
+│   │   ├── abcd.01.1.txt
+│   │   ├── abcd.01.2.txt
+│   │   └── abcd.01.3.txt
+│   └── abcd_02
+│       ├── abcd.02.1.txt
+│       ├── abcd.02.2.txt
+│       └── abcd.02.3.txt
+├── build_dirs.sh
+└── test.sh
 ```
 
-## Übung (Variablen)
-### Angabe
-Löse diese Aufgabe ohne ein shell-script zu schreiben.
+### Erklärung
 
-Lege 2 Variablen für Directories an, eine Variable für den Filenamen und eine Variable für die Dateiendung (Extension).
+- 2 verschachtelte Schleifen für die Unterordner  
+- Schleifen in Bash mit ```{1..3}``` für ranges  
+- ganz wichtig oben ```#!/bin/bash``` sonst gehen diese Range-based for loops nicht
 
-Verwende nur die Variablen anstatt der Directory und Filenamen um folgendes zu lösen:
+# Übung (Skript Generator)
 
-Erzeuge die Directories (das zweite befindet sich in dem ersten).
-Lege in dem zweiten Directory eine Text-Datei mit Inhalt an, verwende Filenamen und Extension (getrennt mit .).
-Gib den Inhalt der Datei (unter Verwendung der Variablen) aus.
+### Angabe:
+
+Schreibe ein Skript das
+
+eine Skriptdatei erzeugt (Name wird als Argument übergeben),
+die She-Bang Zeile einfügt,
+einen echo Befehl einfügt und
+das eXecution Flag für das Skript setzt.
+Anwendung:
+
+```
+$ ./makescript.sh mytest
+```
+
+erzeugt die Datei mytest.sh :
+
+```bash
+#!/bin/env sh
+
+echo "mytest Skript"
+
+# write yor script here
+```
+
+Das erzeugte Skript kann sofort ausgeführt werden:
+
+```
+$ ./mytest.sh
+```
 
 ### Lösung
 
-```
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ DATEINAME=testdatei            
-                                   
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ ENDUNG=.txt     
-                                   
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ DIR1=dir1          
-                                   
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ DIR2=dir2
-                                   
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ mkdir $DIR1 
-                                   
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ mkdir $DIR2
-                                   
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ echo "abc" > ./$DIR2/${DATEINAME}${ENDUNG}
+```bash
+echo "#!/bin/env sh\n\necho $1\" Script\"\n\n#write your script here" > "${1}.sh"
 
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ cat $DIR2/${DATEINAME}${ENDUNG}
-abc
+chmod +x mytest.sh
 ```
 
-## Übung (Begrüßung)
-### Angabe
-Schreibe ein Shell-Script mit dem Namen begruessung.sh, dieses soll:
+### Ausgabe
 
-den Benutzer nach seinem Namen fragen
-den Namen einlesen und in einer Variable speichern
-danach ausgeben:  
-Hallo NAME  
-Schön, dass du da bist.
+```
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ./makescript.sh mytest
+              
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ./mytest.sh           
+mytest Script
 
-Starte das Script auf alle besprochene Arten.
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ cat mytest.sh        
+#!/bin/env sh
 
-Hinweis: Verwende den read Befehl – recherchiere wie dieser zu verwenden ist.
+echo mytest" Script"
+
+#write your script here
+```
+
+# Übung (Headline Cat)
+
+### Angabe: 
+Verwende $@ zur Lösung dieser Aufgabenstellung.
+
+Schreibe ein Skript das eine Art cat zur Verfügung stellt. Als Argumente werden eine beliebige Anzahl von Textdateien übergeben. Das Ergebnis (der Inhalt aller dieser Dateien) wird in die Datei result.txt (fixer Dateiname) geschrieben (ist die Datei vorhanden soll deren Inhalt überschrieben werden). Jedem Datei-Inhalt soll eine Überschrift vorangestellt werden.
+
+Beispiel – der Aufruf
+
+```
+$ ./headline_cat.sh file1.txt file2.txt file3.txt
+```
+
+ergibt die Datei result.txt mit folgendem Inhalt:
+
+```
+== file1.txt ==========================================
+Das ist der Inhalt
+der ersten Textdatei
+
+== file2.txt ==========================================
+Das ist der Inhalt
+der zweiten Textdatei
+
+== file3.txt ==========================================
+Das ist der Inhalt
+der dritten Textdatei
+```
+
+### Lösung:
+
+```bash
+ > result.txt
+for arg in "$@"
+do
+        echo "== $arg" >> result.txt
+        echo "==========================================" >> result.txt
+        echo "Das ist der Inhalt" >> result.txt
+        echo "der ersten Textdatei\n" >> result.txt
+done
+```
+
+### Erklärung
+
+- ```> result.txt``` macht das File komplett leer
+- wenn man ```>>``` bei ```echo``` hernimmt fügt es an das File an und macht automatisch Zeilenumbruch
+
+### Ausgabe:
+
+```
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ./headline_cat.sh file1.txt file2.txt file3.txt
+   
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ cat result.txt                                 
+== file1.txt
+==========================================
+Das ist der Inhalt
+der ersten Textdatei
+
+== file2.txt
+==========================================
+Das ist der Inhalt
+der ersten Textdatei
+
+== file3.txt
+==========================================
+Das ist der Inhalt
+der ersten Textdatei
+```
+
+# Übung (RANDOM)
+
+### Angabe:
+
+Schreibe ein shellscript das eine beliebige Menge von Dateinamen als Parameter akzeptiert. Von jeder dieser Dateien soll eine Kopie im gleichen Verzeichnis angelegt werden. Die Kopie unterscheidet sich vom Original durch eine angefügte Zufallszahl, Beispiel:
+
+```
+test.txt --> test.txt.38573
+```
+
+Aufrufbeispiele:
+
+```
+$ ./randcp.sh test1.txt test2.txt
+$ ./randcp.sh xyz1.md test3.txt abcd.dat
+$ ./randcp.sh *.md
+```
+
+Hinweis: ```$RANDOM``` liefert bei jeder Verwendung eine zufällige Zahl.
+Achtung: ```#!/bin/bash``` in der she-bang Zeile verwenden. ```sh``` unterstützt (in REPL) keine Zufallszahlen.
 
 ### Lösung
 
-```
-begruessung.sh:
+```bash
+#!/bin/bash
 
-read NAME
-echo Hallo $NAME
-echo Schön, dass du da bist.
-
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ chmod 755 begruessung.sh      
-
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ ./begruessung.sh
-Elia
-Hallo Elia
-Schön, dass du da bist.
+for arg in "$@"
+do
+        cp "$arg" "${arg}.${RANDOM}" 
+done
 ```
 
-## Übung (Zeilenumbruch)
-### Angabe
-Erzeuge eine Variable MSG, die mit echo $MSG folgende Ausgabe erzeugt:
-
-Name: Dein Name  
-Klasse: 3AHITS  
-Raum: ...  
-
-Vorgaben/Hinweise:
-
-Es darf nur eine Variable verwendet werden.
-Der Zeilenumbruch muss in der Variablen mit \n definiert sein.
-
-### Lösung
+### Ausgabe
 
 ```
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ MSG="Name: Alexander Schauer\nKlasse: 3AHITS\nRaum: ..."
-                          
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ echo $MSG                                 
-Name: Alexander Schauer
-Klasse: 3AHITS
-Raum: ...
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ls            
+abcd  build_dirs.sh  headline_cat.sh  makescript.sh  mytest.sh  randcp.sh  result.txt  test.sh
+
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ touch test1.txt test2.txt          
+
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ls
+abcd  build_dirs.sh  headline_cat.sh  makescript.sh  mytest.sh  randcp.sh  result.txt  test1.txt  test2.txt  test.sh
+
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ./randcp.sh test1.txt test2.txt
+
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ls
+abcd  build_dirs.sh  headline_cat.sh  makescript.sh  mytest.sh  randcp.sh  result.txt  test1.txt  test1.txt.25488  test2.txt  test2.txt.27989  test.sh
+
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ touch xyz1.md test3.txt abcd.dat 
+  
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ./randcp.sh xyz1.md test3.txt abcd.dat
+
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ls
+abcd      abcd.dat.17118  headline_cat.sh  mytest.sh  result.txt  test1.txt.25488  test2.txt.27989  test3.txt.3754  xyz1.md
+abcd.dat  build_dirs.sh   makescript.sh    randcp.sh  test1.txt   test2.txt        test3.txt        test.sh         xyz1.md.10504
+
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ touch one.md two.md three.md          
+      
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ./randcp.sh *.md            
+
+┌──(kali㉿kali)-[~/SYTB/260407]
+└─$ ls
+abcd            build_dirs.sh    mytest.sh    randcp.sh   test1.txt.25488  test3.txt       three.md       two.md.16385   xyz1.md.15247
+abcd.dat        headline_cat.sh  one.md       result.txt  test2.txt        test3.txt.3754  three.md.5725  xyz1.md
+abcd.dat.17118  makescript.sh    one.md.4650  test1.txt   test2.txt.27989  test.sh         two.md         xyz1.md.10504
 ```
-
-## Übung (admin)
-### Angabe
-Gegeben ist:
-
-USER="admin"
-
-Gib folgende Strings mit echo korrekt aus:  
-admin_backup  
-admin_2026  
-Erkläre, warum folgende Zeile nicht das gewünschte Ergebnis liefert:  
-echo "$USER_backup"
-
-Warum geht echo ```"$USER_backup"``` nicht? Weil Bash denkt die Variable heißt USER_backup
-
-### Lösung
-
-```
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ USER="admin"
-
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ echo "${USER}_backup"                     
-admin_backup
-                          
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ echo "${USER}_2026"  
-admin_2026
-```
-
-## Übung (log file names)
-### Angabe
-Gegeben ist:
-
-DIR="/var/log/"
-
-Erzeuge mit echo folgende Ausgaben unter Verwendung der Variabelen DIR:
-
-- /var/log/nginx  
-- /var/log/apache
-
-### Lösung
-
-```
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ DIR="/var/log/"
-
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ echo "${DIR}nginx"
-/var/log/nginx
-                             
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ echo "${DIR}apache"
-/var/log/apache
-```
-
-## Übung (backup)
-### Angabe
-Gegeben ist:
-
-BASE="backup"  
-DATE="2026-01-16"
-
-Erzeuge folgende Dateinamen mit echo:
-
-backup_2026-01-16.tar  
-backup_2026-01-16.tar.gz
-
-### Lösung
-
-```
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ BASE="backup"      
-                                   
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ DATE="2026-01-16"
-                                   
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ echo "${BASE}_${DATE}.tar"
-backup_2026-01-16.tar
-                        
-┌──(kali㉿kali)-[~/SYTB/260324]
-└─$ echo "${BASE}_${DATE}.tar.gz"
-backup_2026-01-16.tar.gz
-```
-
-## Quellen
-- https://www.howtoforge.de/anleitung/der-linux-read-command/
-- https://ryanstutorials.net/bash-scripting-tutorial/bash-variables.php
