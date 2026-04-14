@@ -1,7 +1,7 @@
 # Arbeitsbericht
 
 - Datum: 7.4.2026
-- Thema: [Command substitution](https://www.franzmatejka.at/htl/doc/SYTB_3/07_cmdsubst_ue.html)
+- Thema: [Command Substitution](https://www.franzmatejka.at/htl/doc/SYTB_3/07_cmdsubst_ue.html)
 - Name: Alexander Schauer
 - Klasse: 3AHITS
 - Fach: SYTB
@@ -165,31 +165,67 @@ Es sind noch 276 Tage bis zum HTL Ball (2027-01-16)
 # Übung (Zufälliger Satz)
 
 ### Angabe:
-### Lösung:
-### Erklärung:
-### Output:
 
+Erstelle ein Skript das einen Satz aus 5 zufälligen Wörtern bildet, z.B.:
+
+```
+richtig ganzen Kilometer auf Mittel
+```
+
+Wähle die Wörter aus dieser Wortliste.
+
+- Hinweis: Das Komando sed -n 5p datei.txt gibt die 5te Zeile aus.
+- Erweiterung: Das Skript soll auch die Anzahl der in der Wortliste enthaltenen Wörter ermitteln. D.h. die Konstante 1000 soll im Skript nicht vorkommen.
+
+### Lösung:
+
+```bash
+if ! test -f wortliste1000.txt; then
+   wget "https://www.franzmatejka.at/htl/doc/SYTB_3/testdata/wortliste1000.txt"
+fi
+
+lines=$(wc -l < wortliste1000.txt)
+
+for i in {1..5};
+do
+	randomNumber=$((RANDOM % lines + 1))
+	echo -n "$(sed -n ${randomNumber}p < wortliste1000.txt) "
+done
+echo ""
+```
+
+### Erklärung:
+
+Erklärung aus Stackoverflow zu test:
+
+```
 The test command (written as [ here) has a "not" logical operator, ! (exclamation mark):
 
 if [ ! -f /tmp/foo.txt ]; then
     echo "File not found!"
 fi
+```
 
-if ! test -f wortliste1000.txt; then
-   wget "https://www.franzmatejka.at/htl/doc/SYTB_3/testdata/wortliste1000.txt"
-fi
+- wenn die Datei nicht existiert herunterladen
+- dann mit wc die Anzahl der Zeilen rausfinden
+- Zufahlszahl generieren und mit Schleife 5 Mal repeaten
+- bei echo -n damit keine neuen Zeilenumbrüche gemacht werden
+- ```sed -n ${randomNumber}p``` gibt die randomNumber -te Zeile zurück
 
-lines=$(wc -l wortliste1000.txt)
-
-echo $lines
-
-
-### Angabe:
-### Lösung:
-### Erklärung:
 ### Output:
 
-### Angabe:
-### Lösung:
-### Erklärung:
-### Output:
+```
+alex@fedora:/tmp$ ./random.sh 
+setzen geworden Parteien schließlich Form 
+
+alex@fedora:/tmp$ ./random.sh 
+gleichen müsse Regierung zeigte Bayern 
+```
+
+# Nicht erledigt
+
+- Übung (dated copy V1)
+- Übung (dated copy V2)
+- Übung (dated copy V3)
+
+Diese Übungen sind sich nicht mehr ausgegangen.

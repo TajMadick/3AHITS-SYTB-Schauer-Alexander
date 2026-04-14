@@ -7,3 +7,4 @@
 - [17.3.2026: Curl beim Notenmanagent](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260317/bericht.html)
 - [24.3.2026: Variablen und Shell Scripts](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260324/bericht.html)
 - [7.4.2026: Shell Scripts - Command Line Arguments und Loops](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260407/bericht.html)
+- [14.4.2026: Command Substitution](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260414/bericht.html)
