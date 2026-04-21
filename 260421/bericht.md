@@ -166,35 +166,45 @@ Schreibe 2 Skripts: ```time_start.sh``` und ```time_stop.sh```. Bei Aufruf von `
 
 - Hinweis 2: Speichere die Zeit in ```time_start.sh``` in einer, mit ```mktemp``` erzeugten, temporären Datei.
 
-```
-┌──(kali㉿kali)-[~/SYTB/260421]
-└─$ cat time_stop.sh
-oldTime=$(cat uhrzeit.*)
-newTime=$(date +%s%N)
-echo $((newTime-oldTime))
+### Lösung:
 
-rm -rf uhrzeit.*
-
-┌──(kali㉿kali)-[~/SYTB/260421]
-└─$ cat time_start.sh 
+time_start.sh:
+```bash
 mktemp uhrzeit.XXXXX
 date +%s%N > uhrzeit.txt
 ```
 
-### Lösung:
+time_stop.sh:
+
+```bash
+oldTime=$(cat uhrzeit.*)
+newTime=$(date +%s%N)
+echo "scale=3; (($newTime-$oldTime) / 1000000000)" | bc
+
+rm -rf uhrzeit.*
+```
 
 ### Erklärung:
 
-### Output:
-
-# Übung (Random Number)
-
-### Angabe:
-
-```$RANDOM``` erzeugt Zahlen zwischen 0 und 32767. Das ist nicht immer hilfreich. Schreibe ein Skript random.sh wo über 2 Grenzen (Argumente des Skripts) der gewünschte Wertebereich vorgegeben werden kann. Zum Beispiel generiert ```./random.sh 10 45``` eine zufällige Zahl im Bereich von 10 bis 45 (jeweils inklusive).
-
-### Lösung:
-
-### Erklärung:
+- ```date +%s%N``` gibt die Nanosekunden seit 01.01.1970 00:00 Uhr UTC aus
+- mit ```scale=3;``` wird die Zahl mit 3 Nachkommastellen ausgegeben und durch 1000000000 rechnen da wir Sekunden und nicht Nanosekunden wollen und dann diese Rechnung in bc piepen da float Zahl
+- zum Schluss wird mit rm -rf uhrzeit.* alle temporären Datein gelöscht
 
 ### Output:
+
+```
+alex@fedora:/tmp$ ./time_start.sh 
+uhrzeit.woSeI
+alex@fedora:/tmp$ ./time_stop.sh 
+3.652
+alex@fedora:/tmp$ ./time_start.sh 
+uhrzeit.ang4R
+alex@fedora:/tmp$ ./time_stop.sh 
+5.377
+```
+
+# Nicht erledigt
+
+- Übung (Random Number)
+
+Diese Übung ist sich nicht mehr ausgegangen.
