@@ -1,6 +1,6 @@
 # Arbeitsbericht
 
-- Datum: 7.4.2026
+- Datum: 14.4.2026
 - Thema: [Command Substitution](https://www.franzmatejka.at/htl/doc/SYTB_3/07_cmdsubst_ue.html)
 - Name: Alexander Schauer
 - Klasse: 3AHITS
