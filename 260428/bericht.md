@@ -14,9 +14,6 @@
 - Übung (HTML Generator)
 - Übung (C-Programm)
 
-
-
-
 # Erklärung Exit Status und test Kommando
 
 https://www.franzmatejka.at/htl/doc/SYTB_3/12_test.html
@@ -199,17 +196,47 @@ Dabei soll aber nur dann konvertiert werden wenn dies wirklich **notwendig** ist
 
 ### Lösung:
 
+```bash
+# sudo apt-get install pandoc 
+# pandoc muss installiert sein
+
+quell=$1
+ziel=$2
+
+(test ! -e $ziel || test $ziel -ot $quell) && pandoc -o $ziel $quell; echo "konvertiert"
+```
+
 ### Erklärung:
+
+- davor mit ```sudo apt-get install pandoc``` pandoc installieren
+- im test wird mit ```-e $ziel``` geprüft ob Datei existiert wenn nicht dann konvertieren
+- im zweiten test wird geprüft ob die Zieldatei älter als die Quelldatei ist mit ```-ot```
 
 ### Output:
 
+```
+┌──(kali㉿kali)-[~/SYTB/260428]
+└─$ ls
+abc  checkSize.sh  dirCreator.sh  md2html.sh  stundenplan.sh  test.md
 
-# Übung (C-Programm)
+┌──(kali㉿kali)-[~/SYTB/260428]
+└─$ ./md2html.sh test.md test.html
+konvertiert
 
-### Angabe:
+┌──(kali㉿kali)-[~/SYTB/260428]
+└─$ ls
+abc  checkSize.sh  dirCreator.sh  md2html.sh  stundenplan.sh  test.html  test.md
 
-### Lösung:
+┌──(kali㉿kali)-[~/SYTB/260428]
+└─$ cat test.html
+<h1 id="header">Header</h1>
+<p>Paragraph</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install pandoc</span></code></pre></div>
+```
 
-### Erklärung:
+# Nicht erledigt
 
-### Output:
+- Übung (C-Programm)
+
+Diese Übung ist sich nicht mehr ausgegangen.
