@@ -9,3 +9,4 @@
 - [7.4.2026: Shell Scripts - Command Line Arguments und Loops](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260407/bericht.html)
 - [14.4.2026: Command Substitution](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260414/bericht.html)
 - [21.4.2026: Arithmetik](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260421/bericht.html)
+- [28.4.2026: Exit Status und test Kommando](https://www.franzmatejka.at/htl/doc/SYTB_3/13_test_ue.html)
