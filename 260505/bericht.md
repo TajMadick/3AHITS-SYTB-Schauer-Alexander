@@ -282,7 +282,7 @@ Hinweis: der Befehl ```exit``` beendet sofort die Skriptabarbeitung.
 
 ### Lösung:
 
-```
+``` bash
 if [ "$1" = "-?" ]
 then
         echo "number.sh: number lines of input"
@@ -292,37 +292,38 @@ then
         exit
 fi
 
+if [ ! -e $1 ] || [ ! -r $1 ] || [ ! -s $1 ]
+then
+        echo "Keine Datei angegeben"
+        exit
+else
+        tmpfile=$(mktemp)
+        nl $1 > $tmpfile
+        mv $tmpfile $1
+        exit
+fi
+
 if [ -t 0 ]
 then
         echo "Keine Datei angegeben"
         exit
 else
         nl /dev/stdin
+        exit
 fi
-
-
-if [ ! -e $1 ] || [ ! -r $1 ] || [ ! -s $1 ]
-then
-
-else
-        tmpfile=$(mktemp)
-        nl $1 > $tmpfile
-        mv $tmpfile $1
-fi
-
 ```
 
 ### Erklärung:
 
-### Output:
+- Das Script funktioniert leider nur so halb
+- das -t 0 prüft ob es einen stdin gibt
+- -e prüft ob Datei vorhanden ist
+- -r ob die Datei readable ist
+- -s ob die Datei leer ist
+- wenn das file passt wird ein temporäres File erstellt und der nl output wird in dieses temporäres File gespeichert
 
-# Übung (Stundenplan V2)
+# Nicht erledigt
 
-### Angabe:
+- Übung (Stundenplan V2)
 
-### Lösung:
-
-### Erklärung:
-
-### Output:
-
+Diese Übung ist sich nicht mehr ausgegangen.
