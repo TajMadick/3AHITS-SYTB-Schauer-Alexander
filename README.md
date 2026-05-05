@@ -10,3 +10,4 @@
 - [14.4.2026: Command Substitution](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260414/bericht.html)
 - [21.4.2026: Arithmetik](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260421/bericht.html)
 - [28.4.2026: Exit Status und test Kommando](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260428/bericht.html)
+- [5.5.2026: if statement](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260505/bericht.html)
