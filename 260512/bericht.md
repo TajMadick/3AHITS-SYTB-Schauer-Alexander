@@ -108,3 +108,9 @@ HASH OK
 100 26626  100 26626    0     0   135k      0 --:--:-- --:--:-- --:--:--  135k
 HASH OK
 ```
+
+# Nicht erledigt
+
+- Übung (Digitale Signatur prüfen)
+
+Diese Übung ist sich nicht mehr ausgegangen.

@@ -11,3 +11,4 @@
 - [21.4.2026: Arithmetik](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260421/bericht.html)
 - [28.4.2026: Exit Status und test Kommando](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260428/bericht.html)
 - [5.5.2026: if statement](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260505/bericht.html)
+- [12.5.2026: Download mit automatisierter Hash/Checksum Überprüfung](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260512/bericht.html)
