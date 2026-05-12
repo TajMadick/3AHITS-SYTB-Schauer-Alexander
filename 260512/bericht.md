@@ -9,6 +9,7 @@
 # Übersicht
 
 - Übung (Secure Download)
+- Übung (Digitale Signatur prüfen)
 
 # Übung (Maximum)
 
@@ -43,6 +44,67 @@ Eine Liste aller u.U. brauchbarer Tools:
 
 ### Lösung:
 
+```bash
+if [ ! -f "putty.zip" ]
+then
+        curl -O -L "https://the.earth.li/~sgtatham/putty/latest/w64/putty.zip"
+fi
+
+tmpFolder=$(mktemp -d)
+tmpDatei="${tmpFolder}/sha512sums"
+
+curl -o $tmpDatei "https://the.earth.li/~sgtatham/putty/0.83/sha512sums"
+
+tmpdownHash="${tmpFolder}/downloadedHash"
+tmpcalcHash="${tmpFolder}/calulatedHash"
+
+grep w64/putty.zip $tmpDatei | cut -d " " -f1 | tr -d [:space:] > $tmpdownHash
+sha512sum putty.zip | cut -d " " -f1 | tr -d [:space:] > $tmpcalcHash
+
+if cmp -s $tmpdownHash $tmpcalcHash
+then
+        echo "HASH OK"
+else
+        echo "HASH NOT OK"
+fi
+```
+
 ### Erklärung
 
+- die erste ```if``` prüft ob im aktuellen Ordner ```putty.zip``` exisitiert
+- wenn nicht wird die Datei mit ```curl``` runtergeladen 
+- die ```-O``` flag heißt das man den Dateinamen vom Link einfach übernimmt
+- die ```-L``` flag heißt das cURL redirects folgt, ansonsten kann es passieren das man eine Fehlerhafte ```.zip``` Datei lädt
+- als nächstes wird ein neuer temporary Folder erstellt und der Name wird als Datei gespeichert
+- danach wird ```curl```die dazugehörige Hash Datei geladen
+- ```-o``` heißt hier das er das File mit eigenem Pfad und Dateinamen speichert
+- danach wird in dieser Datei mit ```grep``` ```w64/putty.zip``` gesucht
+- die Zeile wird in ```cut``` gepipped wo die erste Spalte (der Hashwert) herausgefilltert wird
+- anschließend werden sicherheitshalber mit ```tr``` noch alle Leerzeichen entfernt
+- das Ergebnis wird im ```/tmp``` folder als File gespeichert
+- danach wird der SHA512 Hash der ```putty.zip``` Datei mit ```sha512sum``` berechnet
+- hier wird ebenfalls nur die erste Spalte genommen und alle Leerzeichen entfernt
+- anschließend kann man beide Dateien mit ```cmp``` vergleichen 
+- die ```-s``` flag macht das er keine Fehlermeldung schmeißt wenn Hashes nicht gleich sind sondern einfach in das ```else``` geht
+
 ### Output:
+
+```
+┌──(kali㉿kali)-[~/SYTB/260512]
+└─$ ./checkSum.sh   
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   342  100   342    0     0   2265      0 --:--:-- --:--:-- --:--:--  2280
+100 3998k  100 3998k    0     0  3325k      0  0:00:01  0:00:01 --:--:-- 5467k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 26626  100 26626    0     0   145k      0 --:--:-- --:--:-- --:--:--  146k
+HASH OK
+
+┌──(kali㉿kali)-[~/SYTB/260512]
+└─$ ./checkSum.sh
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 26626  100 26626    0     0   135k      0 --:--:-- --:--:-- --:--:--  135k
+HASH OK
+```
