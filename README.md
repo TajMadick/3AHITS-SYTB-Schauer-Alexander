@@ -13,3 +13,4 @@
 - [5.5.2026: if statement](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260505/bericht.html)
 - [12.5.2026: Download mit automatisierter Hash/Checksum Überprüfung](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260512/bericht.html)
 - [2.6.2026: Regex](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260602/bericht.html)
+- [16.6.2026: Schleifen](https://tajmadick.github.io/3AHITS-SYTB-Schauer-Alexander/260616/bericht.html)
